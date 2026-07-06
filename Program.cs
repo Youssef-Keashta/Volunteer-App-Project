@@ -52,3 +52,19 @@ class Events
         this.EventType = eveType;
     }
 }
+
+class Participation
+{
+    public Volunteer volunteer;
+    public Events eve;
+    public decimal HoursLogged;
+    public string RoleAssigned;
+
+    public Participation(Volunteer vol, Events eve,  decimal hoursLogged, string role)
+    {
+        this.volunteer.volunteerID = vol.volunteerID;
+        this.eve.EventID = eve.EventID;
+        this.HoursLogged = hoursLogged;
+        this.RoleAssigned = role;
+    }
+}
