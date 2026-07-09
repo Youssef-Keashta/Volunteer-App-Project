@@ -4,55 +4,6 @@ class Program
 {
     static void Main()
     {
-        /*Volunteer vol1 = new Volunteer(1, "Youssef", "Ahmed", "Fathy", 21);
-        Volunteer vol2 = new Volunteer(2, "Hana", "Mostafa", "Mohamed", 19);
-        DateOnly join3 = new DateOnly(2024, 11, 15);
-        Volunteer vol3 = new Volunteer(3, "Neveen", "Ibrahim", "Goda", 26, join3, "Head El Far3");
-
-        List<Volunteer> vols= new List<Volunteer>();
-        vols.Add(vol1);
-        vols.Add(vol2);
-        vols.Add(vol3);
-
-        DateOnly date1 = new DateOnly(2026, 8, 5);
-        Events eve1 = new Events(1, "El Masrah", date1, "Farz");
-        DateOnly date2 = new DateOnly(2026, 7, 15);
-        Events eve2 = new Events(2, "Seraj", date2, "Camp");
-
-        List<Events> eves = new List<Events>();
-        eves.Add(eve1);
-        eves.Add(eve2);
-
-        Participation par1 = new Participation(vol1, eve1, 6, "Volunteering Head");
-        Participation par2 = new Participation(vol2, eve2, 6, "Ashbal Head");
-        Participation par3 = new Participation(vol1, eve2, 8, "Volunteer");
-
-        List<Participation> pars = new List<Participation>();
-
-        pars.Add(par1);
-        pars.Add(par2);
-        pars.Add(par3);
-
-        foreach (var vol in vols)
-        {
-            Console.WriteLine($"Volunteer #{vol.VolunteerID}:\nName: {vol.VolunteerFName} {vol.VolunteerMName} {vol.VolunteerLName}\t\tAge: {vol.VolunteerAge}\nJoin Date: {vol.JoinDate}\t\tTier: {vol.Tier}");
-        }
-
-        Console.WriteLine("-------------------------------------------------------------------------");
-
-        foreach (var eve in eves)
-        {
-            Console.WriteLine($"Event #{eve.EventID}:\nEvent Name: {eve.EventName}\nEvent Type: {eve.EventType}\nEvent Date: {eve.EventDate}");
-        }
-
-        Console.WriteLine("-------------------------------------------------------------------------");
-
-        foreach (var par in pars)
-        {
-            Console.WriteLine($"Volunteer Name: {par.volunteer.VolunteerFName} {par.volunteer.VolunteerMName} {par.volunteer.VolunteerLName}\tEvent Name: {par.eve.EventName}\tHours Logged: {par.HoursLogged}");
-        }*/
-
-        VolunteerManager volunteer = new VolunteerManager();
         string choice = "0";
         while (true)
         {
@@ -60,11 +11,12 @@ class Program
             choice = Console.ReadLine();
             if (choice == "1")
             {
-                volunteer.AddVolunteer();
+                VolunteerDB.AddVolunteerDB(VolunteerUI.AddVolunteerUI());
+
             }
             else if (choice == "2")
             {
-                VolunteerManager.ShowVolunteers();
+                VolunteerUI.ShowVolunteersUI(VolunteerDB.ShowVolunteersDB());
             }
             else if (choice == "3")
             {
@@ -100,14 +52,13 @@ class Program
         }
     }
 
-    class VolunteerManager
+    class VolunteerUI
     {
-        private static List<Volunteer> Volunteers = new List<Volunteer>();
-
-        public void AddVolunteer()
+        public static Volunteer AddVolunteerUI()
         {
             Console.Write("Volunteer ID: ");
-            int VID = Int32.Parse(Console.ReadLine());
+            string id = Console.ReadLine();
+            //Int32.TryParse(Console.ReadLine(), out int VID);
             Console.Write("First Name: ");
             string VFName = Console.ReadLine();
             Console.Write("Middle Name: ");
@@ -115,18 +66,33 @@ class Program
             Console.Write("Last Name: ");
             string VLName = Console.ReadLine();
             Console.Write("Volunteer Age: ");
-            int VAge = Int32.Parse(Console.ReadLine());
+            string age = Console.ReadLine();
+            //Int32.TryParse(Console.ReadLine(), out int VAge);
             Console.Write("Join Date (yyyy-MM-dd): ");
             string VJDate = Console.ReadLine();
             Console.Write("Tier: ");
             string VTier = Console.ReadLine();
 
-            DateOnly VJoinDate;
-            if (DateOnly.TryParse(VJDate, out _))
+            int VID;
+            int VAge;
+
+            while (true)
             {
-                VJoinDate = DateOnly.Parse(VJDate);
+                if (!Int32.TryParse(id, out VID))
+                {
+                    Console.WriteLine("Invalid ID Value!");
+                    Console.Write("Volunteer ID: ");
+                    id = Console.ReadLine();
+                }
+                else if (!Int32.TryParse(age, out VAge))
+                {
+                    Console.WriteLine("Invalid Age Value!");
+                    Console.Write("Volunteer Age: ");
+                    age = Console.ReadLine();
+                }
+                else break;
             }
-            else
+            if (!DateOnly.TryParse(VJDate, out DateOnly VJoinDate))
             {
                 VJoinDate = DateOnly.FromDateTime(DateTime.Now);
             }
@@ -137,10 +103,10 @@ class Program
             }
 
             Volunteer volunteer = new Volunteer(VID, VFName, VMName, VLName, VAge, VJoinDate, VTier);
-            Volunteers.Add(volunteer);
+            return volunteer;
         }
 
-        public static void ShowVolunteers()
+        public static void ShowVolunteersUI(List<Volunteer> Volunteers)
         {
             Console.WriteLine("-------------------------------------------------------------------------");
             foreach (var vol in Volunteers)
@@ -148,6 +114,21 @@ class Program
                 Console.WriteLine($"Volunteer #{vol.VolunteerID}:\nName: {vol.VolunteerFName} {vol.VolunteerMName} {vol.VolunteerLName}\t\tAge: {vol.VolunteerAge}\nJoin Date: {vol.JoinDate}\t\tTier: {vol.Tier}");
                 Console.WriteLine();
             }
+
+        }
+    }
+    class VolunteerDB
+    {
+        private static List<Volunteer> Volunteers = new List<Volunteer>();
+
+        public static void AddVolunteerDB(Volunteer volunteer)
+        {
+            Volunteers.Add(volunteer);
+        }
+
+        public static List<Volunteer> ShowVolunteersDB()
+        {
+            return Volunteers;
         }
     }
 
