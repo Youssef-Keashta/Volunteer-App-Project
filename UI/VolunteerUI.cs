@@ -37,19 +37,25 @@ namespace Volunteer_App___Studying.UI
 
             while (true)
             {
+                bool ValidFields = true;
                 if (!Int32.TryParse(id, out VID))
                 {
+                    ValidFields = false;
                     Console.WriteLine("Invalid ID Value!");
                     Console.Write("Volunteer ID: ");
                     id = Console.ReadLine();
                 }
-                else if (!Int32.TryParse(age, out VAge))
+                if (!Int32.TryParse(age, out VAge))
                 {
+                    ValidFields = false;
                     Console.WriteLine("Invalid Age Value!");
                     Console.Write("Volunteer Age: ");
                     age = Console.ReadLine();
                 }
-                else break;
+                if (ValidFields)
+                {
+                    break;
+                }
             }
 
             if (!DateOnly.TryParse(VJDate, out DateOnly VJoinDate))
@@ -71,10 +77,8 @@ namespace Volunteer_App___Studying.UI
             Console.WriteLine("-------------------------------------------------------------------------");
             foreach (var vol in Volunteers)
             {
-                Console.WriteLine($"Volunteer #{vol.VolunteerID}:\nName: {vol.VolunteerFName} {vol.VolunteerMName} {vol.VolunteerLName}\t\tAge: {vol.VolunteerAge}\nJoin Date: {vol.JoinDate}\t\tTier: {vol.Tier}");
-                Console.WriteLine();
+                Console.WriteLine($"Volunteer #{vol.VolunteerID}:\nName: {vol.VolunteerFName} {vol.VolunteerMName} {vol.VolunteerLName}\t\tAge: {vol.VolunteerAge}\nJoin Date: {vol.JoinDate}\t\tTier: {vol.Tier}\n");
             }
-
         }
     }
 }

@@ -10,7 +10,8 @@ class Program
         string choice = "0";
         while (true)
         {
-            Console.WriteLine("Choose From the following Menu:\n1. Add Volunteer\n2. Show All Volunteers\n3. Exit");
+            Console.WriteLine("Choose From the following Menu:\n1. Add Volunteer\n2. Show All Volunteers\n3. Add Event\n" +
+                "4. Show Events\n5. Exit");
             choice = Console.ReadLine();
             if (choice == "1")
             {
@@ -22,6 +23,14 @@ class Program
                 VolunteerUI.ShowVolunteersUI(VolunteerDB.ShowVolunteersDB());
             }
             else if (choice == "3")
+            {
+                EventsDB.AddEventDB(EventsUI.AddEventUI());
+            }
+            else if (choice == "4")
+            {
+                EventsUI.ShowEventsUI(EventsDB.ShowEventsDB());
+            }
+            else if (choice == "5")
             {
                 break;
             }
