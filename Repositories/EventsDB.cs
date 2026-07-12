@@ -21,5 +21,10 @@ namespace Volunteer_App___Studying.Repositories
         {
             return Events;
         }
+
+        public static Events GetEventDB(int id)
+        {
+            return Events.SingleOrDefault(eve => eve.EventID == id);
+        }
     }
 }

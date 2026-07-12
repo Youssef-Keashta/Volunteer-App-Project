@@ -20,5 +20,10 @@ namespace Volunteer_App___Studying.Repositories
         {
             return Volunteers;
         }
+
+        public static Volunteer GetVolunteerDB(int id)
+        {
+            return Volunteers.SingleOrDefault(vol => vol.VolunteerID == id);
+        }
     }
 }
