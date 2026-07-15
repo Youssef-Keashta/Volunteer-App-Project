@@ -14,7 +14,7 @@ namespace Volunteer_App___Studying.Models
         public string VolunteerLName { get; set; }
         public int VolunteerAge { get; set; }
         public DateOnly JoinDate { get; set; }
-        public string Tier { get; set; }
+        public string? Tier { get; set; }
 
         public Volunteer(int VolunteerID, string VolFName, string VolMName, string VolLName, int VolunteerAge, DateOnly JoinDate, string Tier = "N/A")
         {
@@ -24,7 +24,12 @@ namespace Volunteer_App___Studying.Models
             this.VolunteerLName = VolLName;
             this.VolunteerAge = VolunteerAge;
             this.JoinDate = JoinDate;
-            this.Tier = Tier;
+            this.Tier = Tier ?? null;
+        }
+
+        public override string ToString()
+        {
+            return $"Volunteer #{this.VolunteerID}:\nName: {this.VolunteerFName} {this.VolunteerMName} {this.VolunteerLName}\t\tAge: {this.VolunteerAge}\nJoin Date: {this.JoinDate}\t\tTier: {this.Tier ?? "N/A"}\n";
         }
     }
 }
