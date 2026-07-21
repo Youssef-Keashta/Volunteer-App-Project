@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Volunteer_App___Studying.Models;
-using Volunteer_App___Studying.UI;
 
 
 
@@ -17,9 +16,8 @@ namespace Volunteer_App___Studying.Repositories
     {
         private static List<Volunteer> Volunteers = new List<Volunteer>();
 
-        public static void AddVolunteerDB()
+        public static void AddVolunteerDB(Volunteer volunteer)
         {
-            Volunteer volunteer = VolunteerUI.AddVolunteerUI();
             var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             SqlConnection conn = new SqlConnection(config.GetSection("ConnStr").Value);
             string sql = "Insert Into Volunteers (FirstName, MiddleName, LastName, Age, JoinDate, Tier) Values" +

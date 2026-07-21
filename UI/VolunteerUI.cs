@@ -63,9 +63,8 @@ namespace Volunteer_App___Studying.UI
             return volunteer;
         }
 
-        public static void ShowVolunteersUI()
+        public static void ShowVolunteersUI(List<Volunteer> Volunteers)
         {
-            List<Volunteer> Volunteers = VolunteerDB.ShowVolunteersDB();
             Console.WriteLine("-------------------------------------------------------------------------");
             foreach (var vol in Volunteers)
             {
@@ -73,7 +72,7 @@ namespace Volunteer_App___Studying.UI
             }
         }
 
-        public static void GetVolunteerUI()
+        public static int GetVolunteerUI()
         {
             Console.Write("Volunteer ID: ");
             string id = Console.ReadLine();
@@ -93,8 +92,18 @@ namespace Volunteer_App___Studying.UI
                     break;
                 }
             }
-            Volunteer volunteer = VolunteerDB.GetVolunteerDB(VID);
-            Console.Write(volunteer.ToString());
+            return VID;
+        }
+        public static void ShowVolunteerUI(Volunteer volunteer)
+        {
+            if (volunteer == null)
+            {
+                Console.WriteLine("Volunteer Not Found");
+            }
+            else
+            {
+                Console.Write(volunteer.ToString());
+            }
         }
     }
 }

@@ -16,12 +16,12 @@ class Program
             choice = Console.ReadLine();
             if (choice == "1")
             {
-                VolunteerDB.AddVolunteerDB();
+                VolunteerDB.AddVolunteerDB(VolunteerUI.AddVolunteerUI());
 
             }
             else if (choice == "2")
             {
-                VolunteerUI.ShowVolunteersUI();
+                VolunteerUI.ShowVolunteersUI(VolunteerDB.ShowVolunteersDB());
             }
             else if (choice == "3")
             {
@@ -33,7 +33,8 @@ class Program
             }
             else if(choice == "5")
             {
-                VolunteerUI.GetVolunteerUI();
+
+                VolunteerUI.ShowVolunteerUI(VolunteerDB.GetVolunteerDB(VolunteerUI.GetVolunteerUI()));
             }
             else if (choice == "6")
             {
