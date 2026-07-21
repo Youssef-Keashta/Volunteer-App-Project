@@ -12,7 +12,7 @@ class Program
         while (true)
         {
             Console.WriteLine("Choose From the following Menu:\n1. Add Volunteer\n2. Show All Volunteers\n3. Add Event\n" +
-                "4. Show Events\n5. Select Volunteer (By ID)\n6. Exit");
+                "4. Show Events\n5. Select Volunteer (By ID)\n6. Select Event (By ID)\n7. Exit");
             choice = Console.ReadLine();
             if (choice == "1")
             {
@@ -36,7 +36,12 @@ class Program
 
                 VolunteerUI.ShowVolunteerUI(VolunteerDB.GetVolunteerDB(VolunteerUI.GetVolunteerUI()));
             }
-            else if (choice == "6")
+            else if(choice == "6")
+            {
+
+                EventsUI.ShowEventUI(EventsDB.GetEventDB(EventsUI.GetEventUI()));
+            }
+            else if (choice == "7")
             {
                 break;
             }

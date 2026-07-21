@@ -12,9 +12,6 @@ namespace Volunteer_App___Studying.UI
     {
         public static Events AddEventUI()
         {
-            Console.Write("Event ID: ");
-            string id = Console.ReadLine();
-
             Console.Write("Event Name: ");
             string EName = Console.ReadLine();
 
@@ -24,19 +21,12 @@ namespace Volunteer_App___Studying.UI
             Console.Write("Event Type: ");
             string EType = Console.ReadLine();
 
-            int EID;
             DateOnly EDate;
 
             while (true)
             {
                 bool ValidFields = true;
-                if(!Int32.TryParse(id, out EID))
-                {
-                    ValidFields = false;
-                    Console.WriteLine("Invalid ID Value!");
-                    Console.Write("Event ID: ");
-                    id = Console.ReadLine();
-                }
+                
                 if(!DateOnly.TryParse(date, out EDate))
                 {
                     ValidFields = false;
@@ -50,7 +40,7 @@ namespace Volunteer_App___Studying.UI
                 }
             }
 
-            Events eve = new Events(EID, EName, EDate, EType);
+            Events eve = new Events(0, EName, EDate, EType);
             return eve;
         }
 
@@ -59,7 +49,42 @@ namespace Volunteer_App___Studying.UI
             Console.WriteLine("-------------------------------------------------------------------------");
             foreach (var eve in events)
             {
-                Console.WriteLine($"Event #{eve.EventID}:\nEvent Name: {eve.EventName}\t\tEvent Date: {eve.EventDate}\t\tEvent Type: {eve.EventType}\n");
+                Console.WriteLine(eve.ToString());
+            }
+        }
+
+        public static int GetEventUI()
+        {
+            Console.Write("Event ID: ");
+            string id = Console.ReadLine();
+            int EID;
+            while (true)
+            {
+                bool ValidFields = true;
+                if (!Int32.TryParse(id, out EID))
+                {
+                    ValidFields = false;
+                    Console.WriteLine("Invalid ID Value!");
+                    Console.Write("Volunteer ID: ");
+                    id = Console.ReadLine();
+                }
+                if (ValidFields)
+                {
+                    break;
+                }
+            }
+            return EID;
+        }
+
+        public static void ShowEventUI(Events eve)
+        {
+            if (eve == null)
+            {
+                Console.WriteLine("Event Not Found!");
+            }
+            else
+            {
+                Console.WriteLine(eve.ToString());
             }
         }
     }

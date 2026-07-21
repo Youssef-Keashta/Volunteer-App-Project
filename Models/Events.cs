@@ -19,5 +19,9 @@ namespace Volunteer_App___Studying.Models
             this.EventDate = EveDate;
             this.EventType = EveType;
         }
+        public override string ToString()
+        {
+            return $"Event #{EventID}:\nEvent Name: {EventName}\t\tEvent Date: {EventDate}\t\tEvent Type: {EventType}\n";
+        }
     }
 }
