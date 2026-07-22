@@ -7,12 +7,15 @@ class Program
 {
     static void Main()
     {
-        
         string choice = "0";
         while (true)
         {
-            Console.WriteLine("Choose From the following Menu:\n1. Add Volunteer\n2. Show All Volunteers\n3. Add Event\n" +
-                "4. Show Events\n5. Select Volunteer (By ID)\n6. Select Event (By ID)\n7. Exit");
+            Console.WriteLine("Choose From the following Menu:\n" +
+                "1. Add Volunteer\n2. Show All Volunteers\n" +
+                "3. Add Event\n4. Show Events\n" +
+                "5. Select Volunteer (By ID)\n6. Select Event (By ID)\n" +
+                "7. Add Participation\n8. Show All Participations\n" +
+                "9. Show Total Hours Logged for a Volunteer\n10. Exit");
             choice = Console.ReadLine();
             if (choice == "1")
             {
@@ -33,16 +36,28 @@ class Program
             }
             else if(choice == "5")
             {
-
                 VolunteerUI.ShowVolunteerUI(VolunteerDB.GetVolunteerDB(VolunteerUI.GetVolunteerUI()));
             }
             else if(choice == "6")
             {
-
                 EventsUI.ShowEventUI(EventsDB.GetEventDB(EventsUI.GetEventUI()));
             }
-            else if (choice == "7")
+            else if(choice == "7")
             {
+                ParticipationDB.AddParticipationDB(ParticipationUI.AddParticipationUI());
+            }
+            else if(choice == "8")
+            {
+                ParticipationUI.ShowParticipationUI(ParticipationDB.ShowParticipationDB());
+            }
+            else if(choice == "9")
+            {
+                ParticipationUI.GetVolunteerTotalHoursLogged(ParticipationDB.ShowParticipationDB());
+            }
+
+            else if (choice == "10")
+            {
+                Console.WriteLine("Exiting...");
                 break;
             }
             else

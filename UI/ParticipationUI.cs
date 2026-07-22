@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,6 +62,16 @@ namespace Volunteer_App___Studying.UI
                 }
             }
 
+            if (string.IsNullOrEmpty(RoleAssigned))
+            {
+                RoleAssigned = null;
+            }
+
+            if (VolunteerDB.GetVolunteerDB(VID) == null || EventsDB.GetEventDB(EID) == null)
+            {
+                return null;
+            }
+
             Participation participation = new Participation(VolunteerDB.GetVolunteerDB(VID), EventsDB.GetEventDB(EID), HoursLogged, RoleAssigned);
             return participation;
         }
@@ -70,9 +81,7 @@ namespace Volunteer_App___Studying.UI
             Console.WriteLine("-------------------------------------------------------------------------");
             foreach (var par in participations)
             {
-                Console.WriteLine($"Volunteer #{par.volunteer.VolunteerID}:\t\tName: {par.volunteer.VolunteerFName} {par.volunteer.VolunteerMName} {par.volunteer.VolunteerLName}");
-                Console.WriteLine($"Event #{par.eve.EventID}:\tEvent Name: {par.eve.EventName}\tEvent Date: {par.eve.EventDate}");
-                Console.WriteLine($"Number of Hours Logged: {par.HoursLogged}\t\tRole Assigned: {par.RoleAssigned}");
+                Console.WriteLine(par.ToString());
             }
         }
 
@@ -86,6 +95,13 @@ namespace Volunteer_App___Studying.UI
             {
                 bool ValidFields = true;
                 if (!Int32.TryParse(Vid, out VID))
+                {
+                    ValidFields = false;
+                    Console.WriteLine("Invalid Volunteer ID!");
+                    Console.Write("Volunteer ID: ");
+                    Vid = Console.ReadLine();
+                }
+                else if (VolunteerDB.GetVolunteerDB(VID) == null)
                 {
                     ValidFields = false;
                     Console.WriteLine("Invalid Volunteer ID!");
